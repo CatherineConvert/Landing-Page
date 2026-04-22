@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catherine Convert — Éditrice stratégique tech</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --dark: #1C1C1C;
+    --terracotta: #C4724A;
+    --cream: #FAF8F4;
+    --white: #FFFFFF;
+    --gray: #888888;
+    --light-border: rgba(255,255,255,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(28,28,28,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--light-border);
+  }
+
+  .nav-logo {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-logo span {
+    display: inline-block;
+    border: 1.5px solid var(--terracotta);
+    padding: 4px 8px;
+    color: var(--terracotta);
+    font-size: 14px;
+    margin-right: 10px;
+    letter-spacing: 2px;
+    font-weight: 700;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: var(--terracotta) !important;
+    color: var(--white) !important;
+    padding: 10px 22px;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: #b5623b !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(196,114,74,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 80px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-domains {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--terracotta);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+
+  .hero-domains span { margin: 0 8px; opacity: 0.5; }
+
+  .hero-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 1.05;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+
+  .hero-subtitle {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(20px, 2.5vw, 28px);
+    line-height: 1.4;
+    font-weight: 300;
+    margin-bottom: 32px;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: -0.3px;
+  }
+
+  .hero-underline {
+    width: 60px;
+    height: 2px;
+    background: var(--terracotta);
+    margin-bottom: 32px;
+  }
+
+  .hero-text {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.8;
+    max-width: 520px;
+    margin-bottom: 44px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--terracotta);
+    color: var(--white);
+    padding: 15px 32px;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: #b5623b; transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    padding: 15px 32px;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.25);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s;
+  }
+
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.6); }
+
+  .hero-photo {
+    position: relative;
+  }
+
+  .hero-photo img {
+    width: 100%;
+    max-width: 380px;
+    display: block;
+  }
+
+  .hero-photo::before {
+    content: '';
+    position: absolute;
+    top: -16px; left: -16px;
+    right: 16px; bottom: 16px;
+    border: 1px solid var(--terracotta);
+    opacity: 0.4;
+    z-index: -1;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: rgba(255,255,255,0.03);
+    border-top: 1px solid var(--light-border);
+    border-bottom: 1px solid var(--light-border);
+    padding: 40px 60px;
+  }
+
+  .stats-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 38px;
+    color: var(--terracotta);
+    font-weight: 700;
+    letter-spacing: -1px;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    margin-top: 6px;
+    display: block;
+  }
+
+  /* SECTIONS */
+  section { padding: 100px 60px; }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--terracotta);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(26px, 3vw, 40px);
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 24px;
+    max-width: 640px;
+  }
+
+  .section-text {
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.9;
+    max-width: 620px;
+    margin-bottom: 20px;
+  }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--terracotta);
+    margin: 32px 0;
+  }
+
+  /* POUR QUI */
+  .for-who { background: rgba(255,255,255,0.02); }
+
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .criteria-card {
+    border: 1px solid var(--light-border);
+    padding: 32px 28px;
+    transition: border-color 0.2s;
+  }
+
+  .criteria-card:hover { border-color: rgba(196,114,74,0.4); }
+
+  .criteria-icon {
+    font-size: 22px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .criteria-card p {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.7;
+  }
+
+  /* POURQUOI */
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-top: 48px;
+  }
+
+  .proof-item {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--light-border);
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .proof-num {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 30px;
+    color: var(--terracotta);
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1;
+    min-width: 70px;
+  }
+
+  .proof-text {
+    font-size: 15px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    padding-top: 4px;
+  }
+
+  .proof-text strong {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    color: var(--white);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+  }
+
+  /* OFFRES */
+  .offres-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .offre-card {
+    border: 1px solid var(--light-border);
+    padding: 36px 28px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .offre-card:hover { border-color: rgba(196,114,74,0.4); }
+
+  .offre-card.featured {
+    border-color: var(--terracotta);
+    background: rgba(196,114,74,0.05);
+  }
+
+  .offre-badge {
+    position: absolute;
+    top: -12px; left: 28px;
+    background: var(--terracotta);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+  }
+
+  .offre-name {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .offre-price {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    color: var(--terracotta);
+    margin-bottom: 4px;
+  }
+
+  .offre-price span {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0;
+  }
+
+  .offre-duration {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--light-border);
+  }
+
+  .offre-features {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+
+  .offre-features li {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .offre-features li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--terracotta);
+    font-size: 12px;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: rgba(196,114,74,0.06);
+    border-top: 1px solid rgba(196,114,74,0.2);
+    border-bottom: 1px solid rgba(196,114,74,0.2);
+    text-align: center;
+    padding: 100px 60px;
+  }
+
+  .cta-section .section-title { max-width: 580px; margin: 0 auto 16px; }
+  .cta-section .section-text { max-width: 480px; margin: 0 auto 40px; text-align: center; }
+
+  .cta-email {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.4);
+    margin-top: 20px;
+  }
+
+  .cta-email a { color: rgba(255,255,255,0.6); text-decoration: none; }
+
+  /* FOOTER */
+  footer {
+    padding: 32px 60px;
+    border-top: 1px solid var(--light-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .footer-tagline {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><span>CC</span> Catherine Convert</a>
+  <ul class="nav-links">
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#offres">Offres</a></li>
+    <li><a href="#contact" class="nav-cta">Appel découverte</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-domains">
+        Nouvelles Technologies <span>—</span> Sécurité & Défense <span>—</span> Souveraineté Numérique <span>—</span> Territoires
+      </div>
+      <h1 class="hero-title">Vous avez l'expertise.</h1>
+      <p class="hero-subtitle">Le problème, c'est que ça ne se voit pas.</p>
+      <div class="hero-underline"></div>
+      <p class="hero-text">
+        J'écris pour les dirigeants et experts tech qui ont des choses sérieuses à dire — et qui ne veulent pas passer deux heures par semaine à chercher comment les formuler.
+      </p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn-primary">→ Réserver un appel découverte</a>
+        <a href="#offres" class="btn-secondary">Voir les offres</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <div style="width:380px;height:480px;background:rgba(196,114,74,0.08);border:1px solid rgba(196,114,74,0.2);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.2);font-size:13px;letter-spacing:1px;text-transform:uppercase;">Votre photo</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div>
+      <span class="stat-number">30+</span>
+      <span class="stat-label">Analyses publiées</span>
+    </div>
+    <div>
+      <span class="stat-number">11,2M€</span>
+      <span class="stat-label">Projets pilotés</span>
+    </div>
+    <div>
+      <span class="stat-number">5 ans</span>
+      <span class="stat-label">IA · Cyber · Souveraineté</span>
+    </div>
+    <div>
+      <span class="stat-number">Paris</span>
+      <span class="stat-label">Ville de Paris · CASUD · MILIPOL</span>
+    </div>
+  </div>
+</div>
+
+<!-- POUR QUI -->
+<section class="for-who" id="apropos">
+  <div class="section-inner">
+    <p class="section-label">Pour qui</p>
+    <h2 class="section-title">Vous êtes au bon endroit si —</h2>
+    <div class="criteria-grid">
+      <div class="criteria-card">
+        <span class="criteria-icon">⚡</span>
+        <p>Vous dirigez une entreprise tech ou occupez un poste C-suite dans un secteur exposé à l'IA ou à la cybersécurité.</p>
+      </div>
+      <div class="criteria-card">
+        <span class="criteria-icon">✦</span>
+        <p>Vous avez des convictions sur votre domaine mais peu de temps pour les mettre en forme.</p>
+      </div>
+      <div class="criteria-card">
+        <span class="criteria-icon">↗</span>
+        <p>Vous avez essayé de déléguer votre contenu et le résultat ne vous ressemblait pas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POURQUOI MOI -->
+<section>
+  <div class="section-inner">
+    <div class="why-grid">
+      <div>
+        <p class="section-label">Pourquoi moi</p>
+        <h2 class="section-title">Un parcours atypique. Une grille de lecture rare.</h2>
+        <div class="divider"></div>
+        <p class="section-text">Droit international, journalisme spécialisé, gestion de projets publics, analyse tech. Ce n'est pas un accident de carrière.</p>
+        <p class="section-text">C'est ce qui me permet de lire un dossier technique et d'en extraire l'argument qui intéresse un décideur.</p>
+      </div>
+      <div>
+        <div class="proof-item">
+          <span class="proof-num">30+</span>
+          <div class="proof-text">
+            <strong>Analyses publiées</strong>
+            Pour des médias spécialisés — DSI, élus et décideurs
+          </div>
+        </div>
+        <div class="proof-item">
+          <span class="proof-num">11M€</span>
+          <div class="proof-text">
+            <strong>Projets publics pilotés</strong>
+            Ville de Paris, CASUD, MILIPOL
+          </div>
+        </div>
+        <div class="proof-item">
+          <span class="proof-num">2019</span>
+          <div class="proof-text">
+            <strong>IA · Cyber · Souveraineté</strong>
+            Mon territoire depuis 5 ans
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFRES -->
+<section id="offres" style="background:rgba(255,255,255,0.01);border-top:1px solid rgba(255,255,255,0.06);">
+  <div class="section-inner">
+    <p class="section-label">Mes offres</p>
+    <h2 class="section-title">Quatre façons de travailler ensemble</h2>
+    <div class="offres-grid" style="grid-template-columns: repeat(2, 1fr); gap: 24px;">
+
+      <div class="offre-card">
+        <p class="offre-name">🔭 Découverte</p>
+        <p class="offre-price">350 € <span style="text-decoration:line-through;opacity:0.5;">500 €</span></p>
+        <p class="offre-duration">Mois test · Non renouvelable · Sans engagement</p>
+        <ul class="offre-features">
+          <li>4 posts LinkedIn rédigés à votre voix</li>
+          <li>Audit profil LinkedIn</li>
+          <li>Stratégie éditoriale de départ</li>
+          <li>1 cycle de révision</li>
+        </ul>
+        <a href="#contact" class="btn-secondary" style="width:100%;text-align:center;display:block;font-size:12px;">Commencer ici</a>
+      </div>
+
+      <div class="offre-card">
+        <p class="offre-name">Essentiel</p>
+        <p class="offre-price">750 € <span>/ mois</span></p>
+        <p class="offre-duration">Engagement minimum 3 mois</p>
+        <ul class="offre-features">
+          <li>6 posts LinkedIn rédigés à votre voix</li>
+          <li>Brief stratégique mensuel (30 min)</li>
+          <li>Calendrier éditorial</li>
+          <li>2 cycles de révision inclus</li>
+        </ul>
+        <a href="#contact" class="btn-secondary" style="width:100%;text-align:center;display:block;font-size:12px;">Prendre contact</a>
+      </div>
+
+      <div class="offre-card featured">
+        <span class="offre-badge">Recommandé</span>
+        <p class="offre-name">Stratégique</p>
+        <p class="offre-price">1 200 € <span>/ mois</span></p>
+        <p class="offre-duration">Engagement minimum 3 mois</p>
+        <ul class="offre-features">
+          <li>10 posts LinkedIn rédigés à votre voix</li>
+          <li>Interview stratégique mensuelle (45 min)</li>
+          <li>Stratégie éditoriale trimestrielle</li>
+          <li>Visuels dans votre charte (3/mois)</li>
+          <li>Revue de performance mensuelle</li>
+          <li>Révisions illimitées</li>
+        </ul>
+        <a href="#contact" class="btn-primary" style="width:100%;text-align:center;display:block;font-size:12px;">Prendre contact</a>
+      </div>
+
+      <div class="offre-card">
+        <p class="offre-name">Content Maker</p>
+        <p class="offre-price">Sur devis</p>
+        <p class="offre-duration">À la mission · Formats longs</p>
+        <ul class="offre-features">
+          <li>Trames et scripts podcast (épisodes 20–45 min)</li>
+          <li>Articles web & tribunes spécialisées</li>
+          <li>Supports webinaires — plan, slides, talking points</li>
+          <li>Synthèses & notes de positionnement</li>
+          <li>Livrable unique ou série</li>
+        </ul>
+        <a href="#contact" class="btn-secondary" style="width:100%;text-align:center;display:block;font-size:12px;">Discutons-en</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section" id="contact">
+  <div class="section-inner" style="display:flex;flex-direction:column;align-items:center;">
+    <p class="section-label">On commence ?</p>
+    <h2 class="section-title">30 minutes pour voir si c'est pertinent.</h2>
+    <p class="section-text">Pas de pitch. Pas d'engagement. Une conversation pour comprendre votre contexte et vous dire honnêtement si je peux vous aider.</p>
+    <a href="https://calendly.com" class="btn-primary" style="font-size:13px;padding:18px 40px;">→ Réserver un appel découverte</a>
+    <p class="cta-email">Ou par email : <a href="mailto:catherine-convert@outlook.fr">catherine-convert@outlook.fr</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-logo"><span style="font-family:'DM Sans',sans-serif;color:#C4724A;border:1px solid #C4724A;padding:2px 7px;margin-right:8px;font-size:13px;font-weight:700;letter-spacing:2px;">CC</span> Catherine Convert</p>
+  <p class="footer-tagline">Éditrice stratégique tech · IA · Cyber · Souveraineté</p>
+</footer>
+
+</body>
+</html>
